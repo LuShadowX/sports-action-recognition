@@ -1,0 +1,12 @@
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+.DS_Store
+/data/
+/runs/
+/outputs/
+*.pt
+*.npy
+*.mp4
+*.avi
+kaggle.json

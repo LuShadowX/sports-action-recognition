@@ -1,0 +1,51 @@
+# Sports action recognition: CNN (per-frame) + LSTM (temporal) on a UCF101 sports subset.
+# Override any key from the CLI, e.g.  --set train.epochs=10 --set model.backbone=mobilenet_v3_large
+seed: 42
+
+data:
+  root: data/ucf101            # raw videos, searched recursively (any UCF101 mirror layout works)
+  cache_dir: data/cache        # decoded + resized frames (.npy) and manifest.json
+  label_mode: coarse           # coarse = 4 sports actions (serving/running/smashing/volleying); fine = 10 UCF101 classes
+  split: 1                     # official UCF101 group-based split (1, 2 or 3) -> no actor leakage between train/test
+  val_fraction: 0.15           # fraction of *training groups* held out for validation (group-disjoint)
+  cache_frames: 32             # frames stored per clip (uniformly over the whole clip)
+  num_frames: 16               # frames fed to the model (TSN-style segment sampling from the cache)
+  frame_size: 172              # cached frame resolution (square)
+  crop_size: 160               # network input resolution
+  num_workers: 2
+  aug:                         # training-only augmentation (same transform for every frame of a clip)
+    scale_min: 0.6             # random crop covers 60-100% of the frame
+    rotate_deg: 8              # small random rotation
+    erase_prob: 0.3            # random occluding patch
+    temporal_min: 0.7          # sample from a random window covering 70-100% of the clip (speed jitter)
+
+model:
+  backbone: resnet50           # resnet18 | resnet34 | resnet50 | mobilenet_v3_large | mobilenet_v3_small | efficientnet_b0
+  pretrained: true             # ImageNet weights
+  trainable_backbone_stages: 1 # 0 = frozen CNN, 1 = fine-tune last stage, -1 = fine-tune everything
+  hidden_size: 256
+  num_layers: 2
+  bidirectional: true
+  dropout: 0.5
+  pooling: attention           # attention | mean | last
+
+train:
+  epochs: 25
+  batch_size: 8
+  lr: 3.0e-4                   # LSTM + head
+  backbone_lr: 3.0e-5          # fine-tuned CNN stages
+  weight_decay: 1.0e-4
+  warmup_epochs: 1
+  label_smoothing: 0.1
+  class_weighted_loss: true
+  amp: true
+  grad_clip: 1.0
+  mixup_alpha: 0.2             # mixup strength (0 = off)
+  mixup_prob: 0.5              # fraction of batches that get mixup
+  ema_decay: 0.999             # moving average of weights (0 = off)
+  patience: 5                  # early stopping on validation accuracy
+  output_dir: runs/cnn_lstm
+
+inference:
+  stream_stride: 8             # run the CNN on every k-th frame when streaming a long video
+  ema: 0.6                     # temporal smoothing of streamed class probabilities

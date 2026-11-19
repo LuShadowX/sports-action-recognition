@@ -1,0 +1,91 @@
+{
+  "video": "data/real_world/two_players_aerial.mp4",
+  "video_info": {
+    "fps": 23.976023976023978,
+    "frames": 442,
+    "width": 1280,
+    "height": 720
+  },
+  "frames_processed": 442,
+  "clip_prediction": {
+    "action": "serving",
+    "confidence": 0.7557,
+    "probs": {
+      "serving": 0.7557,
+      "running": 0.0667,
+      "smashing": 0.1258,
+      "volleying": 0.0518
+    }
+  },
+  "streaming_action_share": {
+    "serving": 1.0,
+    "running": 0.0,
+    "smashing": 0.0,
+    "volleying": 0.0
+  },
+  "action_timeline": [
+    {
+      "action": "serving",
+      "start_s": 2.34,
+      "end_s": 18.39
+    }
+  ],
+  "court": {
+    "preset": "tennis",
+    "calibrated": true,
+    "unit": "m",
+    "zones": [
+      "Far back court / Left",
+      "Far back court / Center",
+      "Far back court / Right",
+      "Far service box / Left",
+      "Far service box / Center",
+      "Far service box / Right",
+      "Near service box / Left",
+      "Near service box / Center",
+      "Near service box / Right",
+      "Near back court / Left",
+      "Near back court / Center",
+      "Near back court / Right"
+    ]
+  },
+  "players": {
+    "1": {
+      "time_on_screen_s": 2.46,
+      "dominant_zone": "Far back court / Right",
+      "time_in_zone_s": {
+        "Far back court / Right": 1.46,
+        "Far service box / Right": 1.0
+      },
+      "zone_transitions": 1,
+      "distance_m": 6.06,
+      "avg_speed_m_per_s": 2.46
+    },
+    "2": {
+      "time_on_screen_s": 4.8,
+      "dominant_zone": "Far back court / Right",
+      "time_in_zone_s": {
+        "Far back court / Right": 4.8
+      },
+      "zone_transitions": 0,
+      "distance_m": 9.28,
+      "avg_speed_m_per_s": 1.94
+    },
+    "11": {
+      "time_on_screen_s": 1.21,
+      "dominant_zone": "Far back court / Right",
+      "time_in_zone_s": {
+        "Far back court / Right": 1.21
+      },
+      "zone_transitions": 0,
+      "distance_m": 2.13,
+      "avg_speed_m_per_s": 1.76
+    }
+  },
+  "speed": {
+    "processing_fps": 32.3,
+    "action_ms_per_frame": 2.64,
+    "tracking_ms_per_frame": 26.33,
+    "cnn_stride": 8
+  }
+}

@@ -1,0 +1,56 @@
+{
+  "device": "Tesla T4",
+  "backbone": "resnet50",
+  "num_frames": 16,
+  "crop": 160,
+  "model": [
+    {
+      "batch": 1,
+      "amp": false,
+      "latency_ms_p50": 29.74049449994709,
+      "latency_ms_p95": 30.058001350073482,
+      "clips_per_s": 33.727154827338055,
+      "frames_per_s": 539.6344772374089
+    },
+    {
+      "batch": 8,
+      "amp": false,
+      "latency_ms_p50": 216.0250325000561,
+      "latency_ms_p95": 218.29327735001698,
+      "clips_per_s": 37.02778230855403,
+      "frames_per_s": 592.4445169368645
+    },
+    {
+      "batch": 1,
+      "amp": true,
+      "latency_ms_p50": 14.805485500005489,
+      "latency_ms_p95": 16.185902449888086,
+      "clips_per_s": 66.52056783917716,
+      "frames_per_s": 1064.3290854268346
+    },
+    {
+      "batch": 8,
+      "amp": true,
+      "latency_ms_p50": 95.07527950006534,
+      "latency_ms_p95": 95.84020880001844,
+      "clips_per_s": 84.13911980661284,
+      "frames_per_s": 1346.2259169058054
+    }
+  ],
+  "stream": [
+    {
+      "video": "data/real_world/player_serving.mp4",
+      "frames": 251,
+      "tracking": false,
+      "stride": 8,
+      "processing_fps": 425.9281389038941
+    },
+    {
+      "video": "data/real_world/player_serving.mp4",
+      "frames": 251,
+      "tracking": true,
+      "stride": 8,
+      "processing_fps": 24.843941782467684
+    }
+  ]
+}
